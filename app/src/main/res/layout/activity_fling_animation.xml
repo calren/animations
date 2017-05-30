@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    tools:context="com.example.caren.animations.FlingAnimationActivity">
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/ghost"
+        android:background="@drawable/ghost"/>
+
+
+    <!--
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv"
+        android:paddingTop="50dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/button"
+        android:layout_marginTop="10dp"
+        android:layout_height="100dp" />
+        -->
+
+    <SeekBar
+        android:id="@+id/startVelocity"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="100dp"
+        android:max="100" />
+
+    <TextView
+        android:id="@+id/startVelocityText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/startVelocity"
+        android:layout_centerInParent="true"
+        android:text="start velocity"
+        android:textSize="16sp" />
+
+    <SeekBar
+        android:id="@+id/friction"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:max="100" />
+
+    <TextView
+        android:id="@+id/frictionText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/friction"
+        android:layout_centerInParent="true"
+        android:text="friction"
+        android:textSize="16sp" />
+
+</RelativeLayout>
