@@ -10,33 +10,24 @@ import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class FlingAnimationActivity extends AppCompatActivity {
-
-    float maxScroll = 3;
-    float velocityX = 10;
-
     SeekBar startVelocitySeekbar;
     SeekBar frictionSeekbar;
     TextView startVText;
     TextView frictionText;
     FlingAnimation mFlingAnimation;
+    
+    View ghostView;
+    float ghostViewYStart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fling_animation);
 
-//        final RecyclerView recyclerView = findViewById(R.id.rv);
-//        RecyclerViewAdapter adapter = new RecyclerViewAdapter(getImages());
-//        recyclerView.setAdapter(adapter);
-//        recyclerView.setLayoutManager(
-//                new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-
-        View view = findViewById(R.id.ghost);
-        mFlingAnimation = new FlingAnimation(view, DynamicAnimation.TRANSLATION_X);
+        ghostView = findViewById(R.id.ghost);
+        ghostViewYStart = ghostView.getTranslationY();
+        mFlingAnimation = new FlingAnimation(ghostView, DynamicAnimation.TRANSLATION_X);
 
         startVelocitySeekbar = findViewById(R.id.startVelocity);
         frictionSeekbar = findViewById(R.id.friction);
@@ -58,7 +49,6 @@ public class FlingAnimationActivity extends AppCompatActivity {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                startFlingAnimation(5000);
             }
         });
 
@@ -76,24 +66,15 @@ public class FlingAnimationActivity extends AppCompatActivity {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
+                startFlingAnimation();
             }
         });
-
-//        recyclerView.setOnFlingListener(new RecyclerView.OnFlingListener() {
-//            @Override
-//            public boolean onFling(int i, int i1) { //velocityX , velocityY
-//                startFlingAnimation(i);
-//                return true;
-//            }
-//        });
     }
 
-    private void startFlingAnimation(int velocityX) {
-
-
+    private void startFlingAnimation() {
         float startVelocity = startVelocitySeekbar.getProgress() == 0 ? 1 :
                 startVelocitySeekbar.getProgress() *
-                        200; // 200 to 20,000, negative if going// right to left
+                        50; // 200 to 20,000, negative if going// right to left
 
         float pixelPerSecond = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
                 startVelocity,
@@ -101,28 +82,16 @@ public class FlingAnimationActivity extends AppCompatActivity {
 
         float friction =
                 frictionSeekbar.getProgress() == 0 ? 0.01f : frictionSeekbar.getProgress() / 50f;
-        Log.i("Caren2", "velocity: " + startVelocity);
         mFlingAnimation.setStartVelocity(pixelPerSecond)
-                .setFriction(1.1f)
+                .setFriction(friction)
                 .addEndListener(new DynamicAnimation.OnAnimationEndListener() {
                     @Override
                     public void onAnimationEnd(DynamicAnimation dynamicAnimation, boolean b,
                             float v, float v1) {
-
+                        Log.i("Caren", "Resetting ghost view: " + ghostViewYStart);
+                        ghostView.setY(ghostViewYStart);
                     }
                 })
                 .start();
-    }
-
-    private List<Integer> getImages() {
-        List<Integer> images = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
-            if (i % 2 == 0) {
-                images.add(R.drawable.ghost);
-            } else {
-                images.add(R.drawable.ghost2);
-            }
-        }
-        return images;
     }
 }
