@@ -10,20 +10,18 @@
     <ImageView
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:layout_marginTop="50dp"
         android:id="@+id/ghost"
         android:background="@drawable/ghost"/>
 
-
-    <!--
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv"
-        android:paddingTop="50dp"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_below="@+id/button"
-        android:layout_marginTop="10dp"
-        android:layout_height="100dp" />
-        -->
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:text="Animate"
+        android:layout_above="@+id/startVelocityText"
+        android:layout_marginBottom="50dp"
+        android:id="@+id/animateButton"/>
 
     <SeekBar
         android:id="@+id/startVelocity"
